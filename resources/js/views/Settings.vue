@@ -135,7 +135,9 @@ export default {
   computed: {
     formData() {
       return _.tap(new FormData(), formData => {
-        _(this.fields).each(field => field.fill(formData));
+        _(this.fields).each(field => {
+            if (field.fill) field.fill(formData);
+        });
         formData.append('_method', 'POST');
         if (this.$route.params.id) formData.append('path', this.$route.params.id);
       });
